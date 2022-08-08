@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 
-#include "piece.h"
 #include "board.h"
 #include "king.h"
 
@@ -18,6 +17,10 @@ std::vector<Board> board{1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
                         1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
                         1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
                         1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f};
+
+
+
+   
 
 void creatBoard(std::vector<Board>& board)
 {
@@ -59,8 +62,8 @@ void creatBoard(std::vector<Board>& board)
 
 }
 
-std::vector<Piece*> w_pieces;
-std::vector<Piece*> b_pieces;
+
+
 
 int x=800,y=800;
 
@@ -74,45 +77,30 @@ int main()
     Event e;
     King b_king(true),w_king(false);
 
-    bool isMove=false;
-    sf::Vector2f oldPos;
-
-    ////The try of Polymoprhism////
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! DIDN'T WORK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    Piece *wsk= new King(true); //Black king
-    b_pieces.push_back(wsk);
-    Piece *wsk2=new King(false); //White king
-    w_pieces.push_back(wsk2);
-
     ////FUNCTIONS////
     creatBoard(board);
 
+
+bool isMove=false;
+Vector2f oldPos;
     while(window.isOpen())
     {
-        /*
-        Idea is that for evrey piece in my vector for white and black pieces
-        the scope is checking that any of the piece are overlaped during press left button
-        If(isTrue) we showing the green cells for posible moves
-        After realesed button and get overlaped with green cells our piece change direction
-        */
-            for(long unsigned int i=0;i<w_pieces.size();i++)
-            {    
+                
           while (window.pollEvent(e))
         {
             if (e.type == Event::Closed)
                 window.close();
             /////drag and drop///////
             //Draging
-           
             if (e.type == Event::MouseButtonPressed)
                 if (e.key.code == Mouse::Left)
                 {
                     Vector2f mousePos=Vector2f(Mouse::getPosition(window));
                     //Checking if obcjet and mouse are overlaping
-                  if (w_pieces.at(i)->getBounds().contains(mousePos))
+                  if (b_king.getBounds().contains(mousePos))
                       {
                        isMove=true; 
-                       oldPos  = w_pieces.at(i)->getPos();
+                       oldPos  = b_king.getPos();
                       }
                 }
             //Droping
@@ -120,24 +108,17 @@ int main()
             if(isMove==true)
             {
                 //Draw green cells in order to get posibility
-                w_pieces.at(i)->posibleMove(board);
-
-
+                b_king.posibleMove(board);
              if (e.type == Event::MouseButtonReleased)
                 if (e.key.code == Mouse::Left)
                  {
-                  Vector2f newPos=Vector2f(Mouse::getPosition(window));
-                  w_pieces.at(i)->checkMove(newPos,oldPos,board);
                   isMove=false;
+                  Vector2f newPos=Vector2f(Mouse::getPosition(window));
+                  b_king.checkMove(newPos,oldPos,board);
                  }  
                   
-            }   
-
-            
-                              
+            }                       
         }
-                    std::cout<<"I went through scope "<<i<<std::endl;
-            }
 
 
             window.clear(Color::Black);
@@ -156,7 +137,6 @@ int main()
     }
 
 
-    delete wsk;
-    delete wsk2;
+
     return 0;
 }

@@ -6,9 +6,9 @@ BIN = bin
 LIBRARIES	:= -lsfml-graphics -lsfml-window -lsfml-system
 EXECUTABLE	:= main
 
-HEADERS = board.h king.h piece.h
-SRC = main.cpp board.cpp king.cpp piece.cpp
-OBJ = main.o board.o king.o piece.o
+HEADERS = board.h king.h
+SRC = main.cpp board.cpp king.h
+OBJ = main.o board.o king.o
 
 %.o: %.cpp $(HEADERS)
 	$(CXX) -c $< -o $@ $(CXX_FLAGS)

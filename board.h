@@ -10,7 +10,6 @@ class Board: public Drawable{
         RectangleShape rectangle;
         Vector2i position;
         Vector2f size{80.0f,80.0f};
-        bool is_occupied=false;
 
         public:
         ////CONSTRUCTOR & DESTRUCTORS////
@@ -27,9 +26,6 @@ class Board: public Drawable{
         sf::Vector2f getOrigin();
         sf::Color getColorGren();
         sf::Vector2f getPos();
-
-        ////FUNCTIONS for GAME////
-        void changeOccupied(bool _is_occupied);
 
         ////Virtula function to draw objcets////
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;

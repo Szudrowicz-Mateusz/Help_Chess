@@ -42,12 +42,6 @@ sf::Color Board::getColorGren()
     return rectangle.getFillColor();
 }
 
-////FUNCTIONS for GAME////
-void Board::changeOccupied(bool _is_occupied){
-    if(_is_occupied==true) this->is_occupied=true;
-    else this->is_occupied=false;
-}
-
 void Board::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
     target.draw(rectangle,states);

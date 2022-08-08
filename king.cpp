@@ -3,8 +3,8 @@
 
 King::King(bool isBlack)
 {
-    Vector2f size{60.f,60.f};
-    Vector2f origin{30.f,30.f};
+    Vector2f size{80.f,80.f};
+    Vector2f origin{40.f,40.f};
 
     piece.setSize(size);
     piece.setOrigin(origin);
@@ -25,11 +25,12 @@ King::King(bool isBlack)
 
 }
 
+////GETERS////
 sf::FloatRect King::getBounds()
 {
     return piece.getGlobalBounds();
 }
-sf::Vector2f King::getPos()
+Vector2f King::getPos()
 {
     return piece.getPosition();
 }
@@ -75,14 +76,11 @@ void King::checkMove(Vector2f& mousePos,Vector2f& oldPos,std::vector<Board>& b)
             {
             Vector2f newPos=element.getPos();
             piece.setPosition(newPos);
-            element.changeOccupied(true);
             i=1;
             }
         }
     }
     if(i!=1) piece.setPosition(oldPos);
-    else for(auto& element : b) if(element.getBounds().contains(oldPos)) element.changeOccupied(false);
-
 
 }
 
